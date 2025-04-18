@@ -1,304 +1,287 @@
-
-local Instances = {
-	gui = Instance.new("ScreenGui"),
-	notification = Instance.new("Frame"),
-	UICorner = Instance.new("UICorner"),
-	mobilebutton = Instance.new("TextButton"),
-	MainFrame = Instance.new("CanvasGroup"),
-	UICorner_2 = Instance.new("UICorner"),
-	Header = Instance.new("Frame"),
-	mminimize = Instance.new("TextButton"),
-	QuillText = Instance.new("TextLabel"),
-	close = Instance.new("TextButton"),
-	LogoQuill = Instance.new("ImageLabel"),
+local mainapi = {
+	Keybind = "RightShift"
 }
 
-Instances.gui.Name = "gui"
-Instances.gui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.FullscreenExtension
-Instances.gui.ClipToDeviceSafeArea = false
-Instances.gui.IgnoreGuiInset = true
-Instances.gui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
-Instances.gui.DisplayOrder = 999999999
-Instances.gui.Parent = game.StarterGui
+local uipallet = {
+}
 
-Instances.notification.Name = "notification"
-Instances.notification.LayoutOrder = 0
-Instances.notification.Active = false
-Instances.notification.Interactable = true
-Instances.notification.AnchorPoint = Vector2.new(0, 0)
-Instances.notification.Visible = true
-Instances.notification.ZIndex = 10
-Instances.notification.AutomaticSize = Enum.AutomaticSize.None
-Instances.notification.Size = UDim2.new(0.324999988, 0, 0.141704053, 0)
-Instances.notification.Draggable = false
-Instances.notification.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.notification.ClipsDescendants = true
-Instances.notification.BorderColor3 = Color3.new(0, 0, 0)
-Instances.notification.Selectable = false
-Instances.notification.BorderSizePixel = 0
-Instances.notification.Rotation = 0
-Instances.notification.BackgroundTransparency = 0.10000000149011612
-Instances.notification.Position = UDim2.new(0.66155225, 0, 0.816540003, 0)
-Instances.notification.BorderMode = Enum.BorderMode.Outline
-Instances.notification.BackgroundColor3 = Color3.new(0, 0, 0)
-Instances.notification.Style = Enum.FrameStyle.Custom
-Instances.notification.Parent = Instances.gui
 
-Instances.UICorner.Name = "UICorner"
-Instances.UICorner.CornerRadius = UDim.new(0, 8)
-Instances.UICorner.Parent = Instances.notification
+local UserInput = game:GetService("UserInputService")
+local ismobile = UserInput.TouchEnabled
 
-Instances.mobilebutton.Name = "mobilebutton"
-Instances.mobilebutton.AutoButtonColor = true
-Instances.mobilebutton.LayoutOrder = 0
-Instances.mobilebutton.Active = true
-Instances.mobilebutton.Interactable = true
-Instances.mobilebutton.AnchorPoint = Vector2.new(0, 0)
-Instances.mobilebutton.Visible = true
-Instances.mobilebutton.ZIndex = 999999999
-Instances.mobilebutton.AutomaticSize = Enum.AutomaticSize.None
-Instances.mobilebutton.Size = UDim2.new(0, 70, 0, 25)
-Instances.mobilebutton.Draggable = false
-Instances.mobilebutton.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.mobilebutton.ClipsDescendants = false
-Instances.mobilebutton.BorderColor3 = Color3.new(0, 0, 0)
-Instances.mobilebutton.Selectable = true
-Instances.mobilebutton.BorderSizePixel = 1
-Instances.mobilebutton.Rotation = 0
-Instances.mobilebutton.BackgroundTransparency = 0.20000000298023224
-Instances.mobilebutton.Position = UDim2.new(0.790600359, 0, 0.00851815846, 0)
-Instances.mobilebutton.BorderMode = Enum.BorderMode.Outline
-Instances.mobilebutton.BackgroundColor3 = Color3.new(0, 0, 0)
-Instances.mobilebutton.TextDirection = Enum.TextDirection.Auto
-Instances.mobilebutton.TextStrokeColor3 = Color3.new(0, 0, 0)
-Instances.mobilebutton.TextStrokeTransparency = 0.30000001192092896
-Instances.mobilebutton.TextTruncate = Enum.TextTruncate.None
-Instances.mobilebutton.RichText = false
-Instances.mobilebutton.TextColor3 = Color3.new(1, 1, 1)
-Instances.mobilebutton.TextYAlignment = Enum.TextYAlignment.Center
-Instances.mobilebutton.Text = "Atlas"
-Instances.mobilebutton.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-Instances.mobilebutton.TextWrapped = false
-Instances.mobilebutton.TextTransparency = 0
-Instances.mobilebutton.TextXAlignment = Enum.TextXAlignment.Center
-Instances.mobilebutton.MaxVisibleGraphemes = -1
-Instances.mobilebutton.TextScaled = false
-Instances.mobilebutton.Parent = Instances.gui
 
-Instances.MainFrame.Name = "MainFrame"
-Instances.MainFrame.GroupColor3 = Color3.new(1, 1, 1)
-Instances.MainFrame.GroupTransparency = 0
-Instances.MainFrame.Parent = Instances.gui
+local function addCorner(parent, radius)
+	local corner = Instance.new('UICorner')
+	corner.CornerRadius = radius or UDim.new(0, 8)
+	corner.Parent = parent
+	return corner
+end
 
-Instances.UICorner_2.Name = "UICorner"
-Instances.UICorner_2.CornerRadius = UDim.new(0, 14)
-Instances.UICorner_2.Parent = Instances.MainFrame
+gui = Instance.new("ScreenGui")
+gui.Name = "gui"
+gui.SafeAreaCompatibility = Enum.SafeAreaCompatibility.FullscreenExtension
+gui.ClipToDeviceSafeArea = false
+gui.IgnoreGuiInset = true
+gui.ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets
+gui.DisplayOrder = 999999999
+gui.Parent = game.StarterGui
 
-Instances.Header.Name = "Header"
-Instances.Header.LayoutOrder = 0
-Instances.Header.Active = false
-Instances.Header.Interactable = true
-Instances.Header.AnchorPoint = Vector2.new(0, 0)
-Instances.Header.Visible = true
-Instances.Header.ZIndex = 1
-Instances.Header.AutomaticSize = Enum.AutomaticSize.None
-Instances.Header.Size = UDim2.new(1.00000024, 0, 0.0963571742, 0)
-Instances.Header.Draggable = false
-Instances.Header.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.Header.ClipsDescendants = false
-Instances.Header.BorderColor3 = Color3.new(0, 0, 0)
-Instances.Header.Selectable = false
-Instances.Header.BorderSizePixel = 0
-Instances.Header.Rotation = 0
-Instances.Header.BackgroundTransparency = 0
-Instances.Header.Position = UDim2.new(-1.2921906e-07, 0, -2.63282889e-08, 0)
-Instances.Header.BorderMode = Enum.BorderMode.Outline
-Instances.Header.BackgroundColor3 = Color3.new(0, 0, 0)
-Instances.Header.Style = Enum.FrameStyle.Custom
-Instances.Header.Parent = Instances.MainFrame
+notification = Instance.new("Frame")
+notification.Name = "notification"
+notification.LayoutOrder = 0
+notification.Active = false
+notification.Interactable = true
+notification.AnchorPoint = Vector2.new(0, 0)
+notification.Visible = true
+notification.ZIndex = 10
+notification.AutomaticSize = Enum.AutomaticSize.None
+notification.Size = UDim2.new(0.324999988, 0, 0.141704053, 0)
+notification.Draggable = false
+notification.SizeConstraint = Enum.SizeConstraint.RelativeXY
+notification.ClipsDescendants = true
+notification.BorderColor3 = Color3.new(0, 0, 0)
+notification.Selectable = false
+notification.BorderSizePixel = 0
+notification.Rotation = 0
+notification.BackgroundTransparency = 0.10000000149011612
+notification.Position = UDim2.new(0.66155225, 0, 0.816540003, 0)
+notification.BorderMode = Enum.BorderMode.Outline
+notification.BackgroundColor3 = Color3.new(0, 0, 0)
+notification.Style = Enum.FrameStyle.Custom
+notification.Parent = gui
+addCorner(notification)
 
-Instances.mminimize.Name = "mminimize"
-Instances.mminimize.AutoButtonColor = true
-Instances.mminimize.LayoutOrder = 0
-Instances.mminimize.Active = true
-Instances.mminimize.Interactable = true
-Instances.mminimize.AnchorPoint = Vector2.new(0, 0)
-Instances.mminimize.Visible = true
-Instances.mminimize.ZIndex = 1
-Instances.mminimize.AutomaticSize = Enum.AutomaticSize.None
-Instances.mminimize.Size = UDim2.new(0.0317048728, 0, 0.315724909, 0)
-Instances.mminimize.Draggable = false
-Instances.mminimize.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.mminimize.ClipsDescendants = false
-Instances.mminimize.BorderColor3 = Color3.new(0, 0, 0)
-Instances.mminimize.Selectable = true
-Instances.mminimize.BorderSizePixel = 0
-Instances.mminimize.Rotation = 0
-Instances.mminimize.BackgroundTransparency = 1
-Instances.mminimize.Position = UDim2.new(0.881117165, 0, 0.299999863, 0)
-Instances.mminimize.BorderMode = Enum.BorderMode.Outline
-Instances.mminimize.BackgroundColor3 = Color3.new(1, 1, 1)
-Instances.mminimize.TextDirection = Enum.TextDirection.Auto
-Instances.mminimize.TextStrokeColor3 = Color3.new(0, 0, 0)
-Instances.mminimize.TextStrokeTransparency = 1
-Instances.mminimize.TextTruncate = Enum.TextTruncate.None
-Instances.mminimize.RichText = false
-Instances.mminimize.TextColor3 = Color3.new(0, 0, 0)
-Instances.mminimize.TextYAlignment = Enum.TextYAlignment.Center
-Instances.mminimize.Text = "-"
-Instances.mminimize.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-Instances.mminimize.TextWrapped = false
-Instances.mminimize.TextTransparency = 0
-Instances.mminimize.TextXAlignment = Enum.TextXAlignment.Center
-Instances.mminimize.MaxVisibleGraphemes = -1
-Instances.mminimize.TextScaled = false
-Instances.mminimize.Parent = Instances.Header
+mobilebutton = Instance.new("TextButton")
+mobilebutton.Name = "mobilebutton"
+mobilebutton.AutoButtonColor = true
+mobilebutton.LayoutOrder = 0
+mobilebutton.Active = true
+mobilebutton.Interactable = true
+mobilebutton.AnchorPoint = Vector2.new(0, 0)
+mobilebutton.Visible = true
+mobilebutton.ZIndex = 999999999
+mobilebutton.AutomaticSize = Enum.AutomaticSize.None
+mobilebutton.Size = UDim2.new(0, 70, 0, 25)
+mobilebutton.Draggable = false
+mobilebutton.SizeConstraint = Enum.SizeConstraint.RelativeXY
+mobilebutton.ClipsDescendants = false
+mobilebutton.BorderColor3 = Color3.new(0, 0, 0)
+mobilebutton.Selectable = true
+mobilebutton.BorderSizePixel = 1
+mobilebutton.Rotation = 0
+mobilebutton.BackgroundTransparency = 0.20000000298023224
+mobilebutton.Position = UDim2.new(0.790600359, 0, 0.00851815846, 0)
+mobilebutton.BorderMode = Enum.BorderMode.Outline
+mobilebutton.BackgroundColor3 = Color3.new(0, 0, 0)
+mobilebutton.TextDirection = Enum.TextDirection.Auto
+mobilebutton.TextStrokeColor3 = Color3.new(0, 0, 0)
+mobilebutton.TextStrokeTransparency = 0.30000001192092896
+mobilebutton.TextTruncate = Enum.TextTruncate.None
+mobilebutton.RichText = false
+mobilebutton.TextColor3 = Color3.new(1, 1, 1)
+mobilebutton.TextYAlignment = Enum.TextYAlignment.Center
+mobilebutton.Text = "Atlas"
+mobilebutton.FontFace = Font.new("rbxasset://fonts/families/ComicNeueAngular.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+mobilebutton.TextWrapped = false
+mobilebutton.TextTransparency = 0
+mobilebutton.TextXAlignment = Enum.TextXAlignment.Center
+mobilebutton.MaxVisibleGraphemes = -1
+mobilebutton.TextScaled = false
+mobilebutton.Parent = gui
 
-Instances.QuillText.Name = "QuillText"
-Instances.QuillText.LayoutOrder = 0
-Instances.QuillText.Active = false
-Instances.QuillText.Interactable = true
-Instances.QuillText.AnchorPoint = Vector2.new(0, 0)
-Instances.QuillText.Visible = true
-Instances.QuillText.ZIndex = 1
-Instances.QuillText.AutomaticSize = Enum.AutomaticSize.None
-Instances.QuillText.Size = UDim2.new(0, 28, 0, 29)
-Instances.QuillText.Draggable = false
-Instances.QuillText.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.QuillText.ClipsDescendants = false
-Instances.QuillText.BorderColor3 = Color3.new(0, 0, 0)
-Instances.QuillText.Selectable = false
-Instances.QuillText.BorderSizePixel = 0
-Instances.QuillText.Rotation = 0
-Instances.QuillText.BackgroundTransparency = 1
-Instances.QuillText.Position = UDim2.new(0.0659999996, 0, 0, 0)
-Instances.QuillText.BorderMode = Enum.BorderMode.Outline
-Instances.QuillText.BackgroundColor3 = Color3.new(1, 1, 1)
-Instances.QuillText.TextDirection = Enum.TextDirection.Auto
-Instances.QuillText.TextStrokeColor3 = Color3.new(0, 0, 0)
-Instances.QuillText.TextStrokeTransparency = 1
-Instances.QuillText.TextTruncate = Enum.TextTruncate.None
-Instances.QuillText.RichText = false
-Instances.QuillText.TextColor3 = Color3.new(1, 1, 1)
-Instances.QuillText.TextYAlignment = Enum.TextYAlignment.Center
-Instances.QuillText.Text = "QuilL"
-Instances.QuillText.FontFace = Font.new("rbxasset://fonts/families/JosefinSans.json", Enum.FontWeight.Light, Enum.FontStyle.Normal)
-Instances.QuillText.TextWrapped = false
-Instances.QuillText.TextTransparency = 0
-Instances.QuillText.TextXAlignment = Enum.TextXAlignment.Center
-Instances.QuillText.MaxVisibleGraphemes = -1
-Instances.QuillText.TextScaled = false
-Instances.QuillText.Parent = Instances.Header
+QuillGui = Instance.new("CanvasGroup")
+QuillGui.Name = "QuillGui"
+QuillGui.GroupColor3 = Color3.new(1, 1, 1)
+QuillGui.GroupTransparency = 0
+QuillGui.Parent = gui
+addCorner(QuillGui, 14)
 
-Instances.close.Name = "close"
-Instances.close.AutoButtonColor = true
-Instances.close.LayoutOrder = 0
-Instances.close.Active = true
-Instances.close.Interactable = true
-Instances.close.AnchorPoint = Vector2.new(0, 0)
-Instances.close.Visible = true
-Instances.close.ZIndex = 1
-Instances.close.AutomaticSize = Enum.AutomaticSize.None
-Instances.close.Size = UDim2.new(0.0317048728, 0, 0.315724909, 0)
-Instances.close.Draggable = false
-Instances.close.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.close.ClipsDescendants = false
-Instances.close.BorderColor3 = Color3.new(0, 0, 0)
-Instances.close.Selectable = true
-Instances.close.BorderSizePixel = 0
-Instances.close.Rotation = 0
-Instances.close.BackgroundTransparency = 1
-Instances.close.Position = UDim2.new(0.936162353, 0, 0.299999863, 0)
-Instances.close.BorderMode = Enum.BorderMode.Outline
-Instances.close.BackgroundColor3 = Color3.new(1, 1, 1)
-Instances.close.TextDirection = Enum.TextDirection.Auto
-Instances.close.TextStrokeColor3 = Color3.new(0, 0, 0)
-Instances.close.TextStrokeTransparency = 1
-Instances.close.TextTruncate = Enum.TextTruncate.None
-Instances.close.RichText = false
-Instances.close.TextColor3 = Color3.new(0, 0, 0)
-Instances.close.TextYAlignment = Enum.TextYAlignment.Center
-Instances.close.Text = "x"
-Instances.close.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
-Instances.close.TextWrapped = false
-Instances.close.TextTransparency = 0
-Instances.close.TextXAlignment = Enum.TextXAlignment.Center
-Instances.close.MaxVisibleGraphemes = -1
-Instances.close.TextScaled = false
-Instances.close.Parent = Instances.Header
+Header = Instance.new("Frame")
+Header.Name = "Header"
+Header.LayoutOrder = 0
+Header.Active = false
+Header.Interactable = true
+Header.AnchorPoint = Vector2.new(0, 0)
+Header.Visible = true
+Header.ZIndex = 1
+Header.AutomaticSize = Enum.AutomaticSize.None
+Header.Size = UDim2.new(1.00000024, 0, 0.0963571742, 0)
+Header.Draggable = false
+Header.SizeConstraint = Enum.SizeConstraint.RelativeXY
+Header.ClipsDescendants = false
+Header.BorderColor3 = Color3.new(0, 0, 0)
+Header.Selectable = false
+Header.BorderSizePixel = 0
+Header.Rotation = 0
+Header.BackgroundTransparency = 0
+Header.Position = UDim2.new(-1.2921906e-07, 0, -2.63282889e-08, 0)
+Header.BorderMode = Enum.BorderMode.Outline
+Header.BackgroundColor3 = Color3.new(0, 0, 0)
+Header.Style = Enum.FrameStyle.Custom
+Header.Parent = QuillGui
 
-Instances.LogoQuill.Name = "LogoQuill"
-Instances.LogoQuill.LayoutOrder = 0
-Instances.LogoQuill.Active = false
-Instances.LogoQuill.Interactable = true
-Instances.LogoQuill.AnchorPoint = Vector2.new(0, 0)
-Instances.LogoQuill.Visible = true
-Instances.LogoQuill.ZIndex = 1
-Instances.LogoQuill.AutomaticSize = Enum.AutomaticSize.None
-Instances.LogoQuill.Size = UDim2.new(0.0500000007, 0, 0.949999988, 0)
-Instances.LogoQuill.Draggable = false
-Instances.LogoQuill.SizeConstraint = Enum.SizeConstraint.RelativeXY
-Instances.LogoQuill.ClipsDescendants = false
-Instances.LogoQuill.BorderColor3 = Color3.new(0, 0, 0)
-Instances.LogoQuill.Selectable = false
-Instances.LogoQuill.BorderSizePixel = 0
-Instances.LogoQuill.Rotation = 0
-Instances.LogoQuill.BackgroundTransparency = 1
-Instances.LogoQuill.Position = UDim2.new(0.0170000009, 0, 0, 0)
-Instances.LogoQuill.BorderMode = Enum.BorderMode.Outline
-Instances.LogoQuill.BackgroundColor3 = Color3.new(1, 1, 1)
-Instances.LogoQuill.ImageColor3 = Color3.new(1, 1, 1)
-Instances.LogoQuill.ScaleType = Enum.ScaleType.Stretch
-Instances.LogoQuill.ImageTransparency = 0
-Instances.LogoQuill.SliceScale = 1
-Instances.LogoQuill.Image = "rbxassetid://111732193236676"
-Instances.LogoQuill.TileSize = UDim2.new(1, 0, 1, 0)
-Instances.LogoQuill.ImageRectSize = Vector2.new(0, 0)
-Instances.LogoQuill.ImageContent = Content
-Instances.LogoQuill.ResampleMode = Enum.ResamplerMode.Default
-Instances.LogoQuill.ImageRectOffset = Vector2.new(0, 0)
-Instances.LogoQuill.SliceCenter = Rect.new(Vector2.new(0, 0), Vector2.new(0, 0))
-Instances.LogoQuill.Parent = Instances.Header
+mminimize = Instance.new("TextButton")
+mminimize.Name = "mminimize"
+mminimize.AutoButtonColor = true
+mminimize.LayoutOrder = 0
+mminimize.Active = true
+mminimize.Interactable = true
+mminimize.AnchorPoint = Vector2.new(0, 0)
+mminimize.Visible = true
+mminimize.ZIndex = 1
+mminimize.AutomaticSize = Enum.AutomaticSize.None
+mminimize.Size = UDim2.new(0.0317048728, 0, 0.315724909, 0)
+mminimize.Draggable = false
+mminimize.SizeConstraint = Enum.SizeConstraint.RelativeXY
+mminimize.ClipsDescendants = false
+mminimize.BorderColor3 = Color3.new(0, 0, 0)
+mminimize.Selectable = true
+mminimize.BorderSizePixel = 0
+mminimize.Rotation = 0
+mminimize.BackgroundTransparency = 1
+mminimize.Position = UDim2.new(0.881117165, 0, 0.299999863, 0)
+mminimize.BorderMode = Enum.BorderMode.Outline
+mminimize.BackgroundColor3 = Color3.new(1, 1, 1)
+mminimize.TextDirection = Enum.TextDirection.Auto
+mminimize.TextStrokeColor3 = Color3.new(0, 0, 0)
+mminimize.TextStrokeTransparency = 1
+mminimize.TextTruncate = Enum.TextTruncate.None
+mminimize.RichText = false
+mminimize.TextColor3 = Color3.new(0, 0, 0)
+mminimize.TextYAlignment = Enum.TextYAlignment.Center
+mminimize.Text = "-"
+mminimize.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+mminimize.TextWrapped = false
+mminimize.TextTransparency = 0
+mminimize.TextXAlignment = Enum.TextXAlignment.Center
+mminimize.MaxVisibleGraphemes = -1
+mminimize.TextScaled = false
+mminimize.Parent = Header
 
-coroutine.wrap(function()
-	local script = Instance.new("LocalScript", Instances.mobilebutton)
-	local mobilebutton = script.Parent
-	local Quill = script.Parent.Parent.MainFrame
-	local UserInput = game:GetService("UserInputService")
-	
-	-- Check if the device is mobile
-	local ismobile = UserInput.TouchEnabled
-	
-	-- Set the visibility of the mobile button based on the device type
-	mobilebutton.Visible = ismobile
-	
-	mobilebutton.MouseButton1Click:Connect(function()
-		if Quill.Visible then
-			Quill.Visible = false
-		else
-			Quill.Visible = true
-		end
-	end)
-	
-	
-end)()
+QuillText = Instance.new("TextLabel")
+QuillText.Name = "QuillText"
+QuillText.LayoutOrder = 0
+QuillText.Active = false
+QuillText.Interactable = true
+QuillText.AnchorPoint = Vector2.new(0, 0)
+QuillText.Visible = true
+QuillText.ZIndex = 1
+QuillText.AutomaticSize = Enum.AutomaticSize.None
+QuillText.Size = UDim2.new(0, 28, 0, 29)
+QuillText.Draggable = false
+QuillText.SizeConstraint = Enum.SizeConstraint.RelativeXY
+QuillText.ClipsDescendants = false
+QuillText.BorderColor3 = Color3.new(0, 0, 0)
+QuillText.Selectable = false
+QuillText.BorderSizePixel = 0
+QuillText.Rotation = 0
+QuillText.BackgroundTransparency = 1
+QuillText.Position = UDim2.new(0.0659999996, 0, 0, 0)
+QuillText.BorderMode = Enum.BorderMode.Outline
+QuillText.BackgroundColor3 = Color3.new(1, 1, 1)
+QuillText.TextDirection = Enum.TextDirection.Auto
+QuillText.TextStrokeColor3 = Color3.new(0, 0, 0)
+QuillText.TextStrokeTransparency = 1
+QuillText.TextTruncate = Enum.TextTruncate.None
+QuillText.RichText = false
+QuillText.TextColor3 = Color3.new(1, 1, 1)
+QuillText.TextYAlignment = Enum.TextYAlignment.Center
+QuillText.Text = "QuilL"
+QuillText.FontFace = Font.new("rbxasset://fonts/families/JosefinSans.json", Enum.FontWeight.Light, Enum.FontStyle.Normal)
+QuillText.TextWrapped = false
+QuillText.TextTransparency = 0
+QuillText.TextXAlignment = Enum.TextXAlignment.Center
+QuillText.MaxVisibleGraphemes = -1
+QuillText.TextScaled = false
+QuillText.Parent = Header
 
-coroutine.wrap(function()
-	local script = Instance.new("LocalScript", Instances.MainFrame)
-	local idk = {
-		Keybind = "RightShift"
-	}
-	
-	local Quill = script.Parent
-	local UserInput = game:GetService("UserInputService")
-	
-	UserInput.InputBegan:Connect(function(key)
-		if key.KeyCode == Enum.KeyCode[idk.Keybind] then
-			if Quill.Visible == false then
-				Quill.Visible = true
-			else
-				Quill.Visible = false
-			end
-		end
-	end)
+close = Instance.new("TextButton")
+close.Name = "close"
+close.AutoButtonColor = true
+close.LayoutOrder = 0
+close.Active = true
+close.Interactable = true
+close.AnchorPoint = Vector2.new(0, 0)
+close.Visible = true
+close.ZIndex = 1
+close.AutomaticSize = Enum.AutomaticSize.None
+close.Size = UDim2.new(0.0317048728, 0, 0.315724909, 0)
+close.Draggable = false
+close.SizeConstraint = Enum.SizeConstraint.RelativeXY
+close.ClipsDescendants = false
+close.BorderColor3 = Color3.new(0, 0, 0)
+close.Selectable = true
+close.BorderSizePixel = 0
+close.Rotation = 0
+close.BackgroundTransparency = 1
+close.Position = UDim2.new(0.936162353, 0, 0.299999863, 0)
+close.BorderMode = Enum.BorderMode.Outline
+close.BackgroundColor3 = Color3.new(1, 1, 1)
+close.TextDirection = Enum.TextDirection.Auto
+close.TextStrokeColor3 = Color3.new(0, 0, 0)
+close.TextStrokeTransparency = 1
+close.TextTruncate = Enum.TextTruncate.None
+close.RichText = false
+close.TextColor3 = Color3.new(0, 0, 0)
+close.TextYAlignment = Enum.TextYAlignment.Center
+close.Text = "x"
+close.FontFace = Font.new("rbxasset://fonts/families/SourceSansPro.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+close.TextWrapped = false
+close.TextTransparency = 0
+close.TextXAlignment = Enum.TextXAlignment.Center
+close.MaxVisibleGraphemes = -1
+close.TextScaled = false
+close.Parent = Header
+
+LogoQuill = Instance.new("ImageLabel")
+LogoQuill.Name = "LogoQuill"
+LogoQuill.LayoutOrder = 0
+LogoQuill.Active = false
+LogoQuill.Interactable = true
+LogoQuill.AnchorPoint = Vector2.new(0, 0)
+LogoQuill.Visible = true
+LogoQuill.ZIndex = 1
+LogoQuill.AutomaticSize = Enum.AutomaticSize.None
+LogoQuill.Size = UDim2.new(0.0500000007, 0, 0.949999988, 0)
+LogoQuill.Draggable = false
+LogoQuill.SizeConstraint = Enum.SizeConstraint.RelativeXY
+LogoQuill.ClipsDescendants = false
+LogoQuill.BorderColor3 = Color3.new(0, 0, 0)
+LogoQuill.Selectable = false
+LogoQuill.BorderSizePixel = 0
+LogoQuill.Rotation = 0
+LogoQuill.BackgroundTransparency = 1
+LogoQuill.Position = UDim2.new(0.0170000009, 0, 0, 0)
+LogoQuill.BorderMode = Enum.BorderMode.Outline
+LogoQuill.BackgroundColor3 = Color3.new(1, 1, 1)
+LogoQuill.ImageColor3 = Color3.new(1, 1, 1)
+LogoQuill.ScaleType = Enum.ScaleType.Stretch
+LogoQuill.ImageTransparency = 0
+LogoQuill.SliceScale = 1
+LogoQuill.Image = "rbxassetid://111732193236676"
+LogoQuill.TileSize = UDim2.new(1, 0, 1, 0)
+LogoQuill.ImageRectSize = Vector2.new(0, 0)
+LogoQuill.ImageContent = Content
+LogoQuill.ResampleMode = Enum.ResamplerMode.Default
+LogoQuill.ImageRectOffset = Vector2.new(0, 0)
+LogoQuill.SliceCenter = Rect.new(Vector2.new(0, 0), Vector2.new(0, 0))
+LogoQuill.Parent = Header
+
+mobilebutton.Visible = ismobile
+mobilebutton.MouseButton1Click:Connect(function()
+	if QuillGui.Visible then
+		QuillGui.Visible = false
+	else
+		QuillGui.Visible = true
+	end
 end)
+
+UserInput.InputBegan:Connect(function(key)
+                   if key.KeyCode == Enum.KeyCode[mainapi.Keybind] then
+                                   if QuillGui.Visible == false then 
+                                                         QuillGui.Visible = true
+                                   else
+                                                          QuilGui.Visible = false
+                                   end
+                        end
+           end)
