@@ -35,23 +35,31 @@ local function makeDraggable(dragHandle, dragTarget)
 	local dragging = false
 	local dragStart = nil
 	local startPos = nil
-	
+	local activeTouchId = nil
+
 	dragHandle.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 			dragging = true
 			dragStart = input.Position
 			startPos = dragTarget.Position
+			if input.UserInputType == Enum.UserInputType.Touch then
+				activeTouchId = input.TouchId
+			end
 
 			input.Changed:Connect(function()
 				if input.UserInputState == Enum.UserInputState.End then
 					dragging = false
+					activeTouchId = nil
 				end
 			end)
 		end
 	end)
 
 	inputService.InputChanged:Connect(function(input)
-		if dragging and dragStart and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		-- Filter for the correct input
+		local isTouch = input.UserInputType == Enum.UserInputType.Touch and input.TouchId == activeTouchId
+		local isMouse = input.UserInputType == Enum.UserInputType.MouseMovement
+		if dragging and dragStart and (isMouse or isTouch) then
 			local delta = input.Position - dragStart
 			dragTarget.Position = UDim2.new(
 				startPos.X.Scale,
