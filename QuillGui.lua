@@ -18,6 +18,7 @@ local uipallet = {
 local inputService = game:GetService("UserInputService")
 local guiService = game:GetService("GuiService")
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local ismobile = inputService.TouchEnabled
 
 local assetTable = {
 	["quill/assets/Logo.png"] = "rbxassetid://111732193236676"
@@ -44,9 +45,12 @@ local function makeDraggable(dragHandle, dragTarget)
 			startPos = dragTarget.Position
 			dragInput = input
 
+			-- Kill drag if input ends
 			input.Changed:Connect(function()
 				if input.UserInputState == Enum.UserInputState.End then
 					dragging = false
+					dragStart = nil
+					startPos = nil
 					dragInput = nil
 				end
 			end)
@@ -54,15 +58,28 @@ local function makeDraggable(dragHandle, dragTarget)
 	end)
 
 	inputService.InputChanged:Connect(function(input)
-		-- Only respond to the input that started the drag
-		if input == dragInput and dragging and dragStart then
-			local delta = input.Position - dragStart
-			dragTarget.Position = UDim2.new(
-				startPos.X.Scale,
-				startPos.X.Offset + delta.X,
-				startPos.Y.Scale,
-				startPos.Y.Offset + delta.Y
-			)
+		if not (dragging and dragStart and startPos) then return end
+
+		if ismobile then
+			if input == dragInput then
+				local delta = input.Position - dragStart
+				dragTarget.Position = UDim2.new(
+					startPos.X.Scale,
+					startPos.X.Offset + delta.X,
+					startPos.Y.Scale,
+					startPos.Y.Offset + delta.Y
+				)
+			end
+		else
+			if input.UserInputType == Enum.UserInputType.MouseMovement then
+				local delta = input.Position - dragStart
+				dragTarget.Position = UDim2.new(
+					startPos.X.Scale,
+					startPos.X.Offset + delta.X,
+					startPos.Y.Scale,
+					startPos.Y.Offset + delta.Y
+				)
+			end
 		end
 	end)
 end
@@ -142,9 +159,8 @@ mobilebutton.MouseButton1Click:Connect(function()
 	end
 end)
 
-local ismobile = inputService.TouchEnabled
 
-if ismobile == true then
+if ismobile then
 	mobilebutton.Visible = true
 else
 	mobilebutton.Visible = false
