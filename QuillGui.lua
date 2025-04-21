@@ -1,10 +1,7 @@
----[
--- Yes, some of this is from 7GranddadPGN
--- Made by: 0khs
---
----]
+--[
+-- yes i skid some from 7GranddadPGN
 -- Made for Multiple roblox game!(make sure your executor is level 7 or higher because yes)
-
+--]
 for _, folder in {'quill', 'quill/assets', 'quill/games', 'quill/profiles'} do
 	if not isfolder(folder)then
 		makefolder(folder)
@@ -203,17 +200,16 @@ local function _create()
 		getcustomasset = not inputService.TouchEnabled and assetfunction and function(path)
 			return downloadFile(path, assetfunction)
 		end or function(path)
-			return getcustomasset[path] or ''
-            finishedDownload = true
-            
-            -- When using predefined assets, make loading bar complete
-            local quickTween = tween:Create(loadingbar1, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+			local quickTWeen = tween:Create(loadingbar1, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
                 Size = UDim2.new(1, 0, 1, 0)
             })
-            quickTween:Play()
-            downloadtext.Text = "Initialization Complete"
-		end
-		
+            quickTWeen:Play()
+            downloadtext.Text = "Intialization Complete"
+            
+            finishedDownload = true
+            return getcustomasset[path] or ''	
+        end
+        	
 		local WatermarkLogo = Instance.new('ImageLabel')
 		WatermarkLogo.Name = "WatermarkLogo"
 		WatermarkLogo.Image = getcustomasset["quill/assets/Logo.png"]
