@@ -48,7 +48,8 @@ local function _create()
 	local ismobile = inputService.TouchEnabled
 	local HttpService = game:GetService("HttpService")
 
-	local getcustomasset = {
+	-- Store asset paths in a separate table (not overwriting getcustomasset)
+	local assetPaths = {
 		["quill/assets/Logo.png"] = "rbxassetid://111732193236676"
 	}
 
@@ -197,6 +198,7 @@ local function _create()
 			return (func or readfile)(path)
 		end
 		
+		-- Redefine getcustomasset as a function that properly handles assets
 		getcustomasset = not inputService.TouchEnabled and assetfunction and function(path)
 			return downloadFile(path, assetfunction)
 		end or function(path)
@@ -207,12 +209,12 @@ local function _create()
             downloadtext.Text = "Intialization Complete"
             
             finishedDownload = true
-            return getcustomasset[path] or ''	
+            return assetPaths[path] or ''	
         end
         	
 		local WatermarkLogo = Instance.new('ImageLabel')
 		WatermarkLogo.Name = "WatermarkLogo"
-		WatermarkLogo.Image = getcustomasset["quill/assets/Logo.png"]
+		WatermarkLogo.Image = assetPaths["quill/assets/Logo.png"]  -- Use assetPaths instead of getcustomasset
 		WatermarkLogo.BackgroundTransparency = 1
 		WatermarkLogo.ImageColor3 = uipallet.white
 		WatermarkLogo.Size = UDim2.new(0, 72, 0, 63)
@@ -279,7 +281,7 @@ local function _create()
 	local guilogo = Instance.new('ImageLabel')
 	guilogo.Name = "QuillLogo"
 	guilogo.Size = UDim2.new(0.068, 0, 1, 0)
-	guilogo.Image = getcustomasset["quill/assets/Logo.png"]
+	guilogo.Image = assetPaths["quill/assets/Logo.png"]  -- Use assetPaths table here too
 	guilogo.Visible = true
 	guilogo.Position = UDim2.new(0.02, 0, 0.1, 0)
 	guilogo.BackgroundTransparency = 1
